@@ -15,7 +15,9 @@ import { ref } from "vue";
 
 // Define variables and constants
 var count = ref(0);
-var firstSlider = ref(25);
+var slider1 = ref(15);
+var slider2 = ref(25);
+var slider3 = ref(35);
 var runToggle = ref(false);
 
 // Define functions
@@ -24,9 +26,21 @@ function increment() {
   //console.log(`Value is: ${count.value}.`);
 }
 
-function updateValue(newValue, parameterName) {
+function updateValue1(newValue, parameterName) {
   if (parameterName === "Height") {
-    firstSlider.value = newValue;
+    slider2.value = newValue;
+  }
+}
+
+function updateValue2(newValue, parameterName) {
+  if (parameterName === "Width") {
+    slider2.value = newValue;
+  }
+}
+
+function updateValue3(newValue, parameterName) {
+  if (parameterName === "Length") {
+    slider3.value = newValue;
   }
 }
 
@@ -57,14 +71,24 @@ with data, objects, functions etc. -->
         v-bind:min="1" v-bind:max="50" v-bind:step="1"
         v-on:updateValue="updateValue"/>
 
+        <SliderInput title="Width"
+        v-bind:min="1" v-bind:max="50" v-bind:step="1"
+        v-on:updateValue="updateValue"/>
+
+        <SliderInput title="Length"
+        v-bind:min="1" v-bind:max="50" v-bind:step="1"
+        v-on:updateValue="updateValue"/>
+
       <ToggleInput title="Run?" v-on:updateValue="updateToggle"></ToggleInput>
 
-      <h2>Value received in App.vue: {{ firstSlider }}</h2>
+      <h2>Value received in App.vue: {{ slider1 }}</h2>
       <h2>Value received in App.vue: {{ runToggle }}</h2>
     </div>
 
     <div id="content">
-      <GeometryView :size="firstSlider" />
+      <GeometryView :size="slider1" />
+      <GeometryView :size="slider2" />
+      <GeometryView :size="slider3" />
 
       <!-- uncomment to add another geometryview -->
       <!-- <GeometryView :size="firstSlider"/> -->

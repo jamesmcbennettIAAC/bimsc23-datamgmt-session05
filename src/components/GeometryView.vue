@@ -13,6 +13,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // Property coming from parent component
 const props = defineProps(["size"]);
 
+
 // Three js objects
 let renderer, camera, scene, controls, geometry;
 
@@ -27,8 +28,8 @@ function init() {
   document.getElementById("threejs-container").appendChild(renderer.domElement);
 
   // camera
-  camera = new THREE.PerspectiveCamera(75, width / heigh, 0.1, 1000);
-  camera.position.set(0, 0, 40);
+  camera = new THREE.PerspectiveCamera(50, width / heigh, 0.1, 1000);
+  camera.position.set(50, 50, 50);
 
   // scene
   scene = new THREE.Scene();
@@ -44,6 +45,7 @@ function init() {
 
 // for controls update
 function animate() {
+  
   requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
@@ -52,14 +54,15 @@ function animate() {
 function createBox(l, w, h) {
   geometry = new THREE.BoxGeometry(l, w, h);
   const material = new THREE.MeshNormalMaterial();
-  const sphere = new THREE.Mesh(geometry, material);
-  scene.add(sphere);
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
 }
 
-function onSliderChange(color) {
+function onSliderChange() {
   scene.clear();
   createBox(props.size, props.size, props.size);
 }
+
 
 // This function runs at the beginning of the component lifecycle.
 // More about Vue lifecycles: https://vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram
@@ -72,7 +75,9 @@ onMounted(() => {
 onUpdated(() => {
   // text content should be the same as current `count.value`
   onSliderChange();
+
 });
+
 </script>
 
 <style scoped>
