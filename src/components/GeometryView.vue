@@ -11,7 +11,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 // Property coming from parent component
-const props = defineProps(['radius', 'tube', 'tubeSegments', 'radialSegments', 'meshBoolean', 'Red', 'Blue', 'Green']);
+const props = defineProps(['radius', 'tube', 'tubeSegments', 'radialSegments', 'meshBoolean', 'torusColor']);
+
 
 
 // Three js objects
@@ -21,7 +22,7 @@ let width = 1000;
 let heigh = 700;
 
 function init() {
-  // rendeder
+  // renderer
   renderer = new THREE.WebGLRenderer();
   renderer.setSize(width, heigh);
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -55,13 +56,17 @@ function animate() {
 
 }
 
+
+
 function createTorusKnot(radius, tube, tubeSegments, radialSegments) {
   geometry = new THREE.TorusKnotGeometry( radius, tube, tubeSegments, radialSegments );
-  const material = new THREE.MeshStandardMaterial({color: new THREE.Color(props.Red, props.Blue, props.Green), wireframe: props.meshBoolean});
+  const material = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(props.torusColor),
+    wireframe: props.meshBoolean});
   const torusKnot = new THREE.Mesh(geometry, material);
   scene.add(torusKnot);
 
-  
+
       // Add lights to the scene
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);

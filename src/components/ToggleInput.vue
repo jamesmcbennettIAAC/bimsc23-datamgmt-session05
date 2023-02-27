@@ -8,7 +8,7 @@ defineProps(['title'])
 const emits = defineEmits(['updateValue'])
 
 // Define variables with refs
-var toggleValue = ref(false)
+var toggleValue = ref(true)
 
 // Define functions
 function sendToggleUpdate() {
