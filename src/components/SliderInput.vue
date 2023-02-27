@@ -10,12 +10,12 @@ const titlec = ref(props.title)
 const emits = defineEmits(['updateValue'])
 
 
-
-var sliderValue = ref(25)
+var sliderValue = ref(15)
 
 function sendValueUpate()
 {
   emits('updateValue', sliderValue.value, titlec.value)
+  console.log(sliderValue)
 }
 
 
@@ -42,8 +42,8 @@ function sendValueUpate()
   appearance: none;
   -webkit-appearance: none;
   width: 100%;
-  background: linear-gradient(90deg, #f19af3, #f099b5);
-  height: 17px;
+  background: linear-gradient(90deg, lightgray, gray);
+  height: 34px;
   border-radius: 15px;
   margin: 10px 0px;
 }
@@ -51,10 +51,10 @@ function sendValueUpate()
 .modern-range::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
   border-radius: 15px;
-  background-color: black;
+  background-color: white;
   cursor: pointer;
 }
 </style>

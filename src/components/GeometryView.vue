@@ -11,13 +11,13 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 // Property coming from parent component
-const props = defineProps(["size"]);
+const props = defineProps(['radius', 'tube', 'tubeSegments', 'radialSegments', 'meshBoolean', 'Red', 'Blue', 'Green']);
 
 
 // Three js objects
 let renderer, camera, scene, controls, geometry;
 
-let width = 600;
+let width = 1000;
 let heigh = 700;
 
 function init() {
@@ -28,18 +28,20 @@ function init() {
   document.getElementById("threejs-container").appendChild(renderer.domElement);
 
   // camera
-  camera = new THREE.PerspectiveCamera(50, width / heigh, 0.1, 1000);
-  camera.position.set(50, 50, 50);
+  camera = new THREE.PerspectiveCamera(25, width / heigh, 0.1, 1000);
+  camera.position.set(10, 50, 70);
 
   // scene
   scene = new THREE.Scene();
-  scene.background = new THREE.Color("#f5f6fa");
+  scene.background = new THREE.Color("#000000");
+  
+
 
   // orbit controls
   controls = new OrbitControls(camera, renderer.domElement);
 
   // add fun shape
-  createBox(25, 25, 25);
+  createTorusKnot(10, 3, 100, 16);
   animate();
 }
 
@@ -49,18 +51,30 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
+
+
 }
 
-function createBox(l, w, h) {
-  geometry = new THREE.BoxGeometry(l, w, h);
-  const material = new THREE.MeshNormalMaterial();
-  const cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
+function createTorusKnot(radius, tube, tubeSegments, radialSegments) {
+  geometry = new THREE.TorusKnotGeometry( radius, tube, tubeSegments, radialSegments );
+  const material = new THREE.MeshStandardMaterial({color: new THREE.Color(props.Red, props.Blue, props.Green), wireframe: props.meshBoolean});
+  const torusKnot = new THREE.Mesh(geometry, material);
+  scene.add(torusKnot);
+
+  
+      // Add lights to the scene
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLight.position.set(1, 1, 1);
+    scene.add(directionalLight);
 }
 
 function onSliderChange() {
   scene.clear();
-  createBox(props.size, props.size, props.size);
+  //createBox(props.size1, props.size2, props.size3);
+  createTorusKnot(props.radius, props.tube, props.tubeSegments, props.radialSegments);
 }
 
 
@@ -80,7 +94,7 @@ onUpdated(() => {
 
 </script>
 
-<style scoped>
+<!-- <style scoped>
 #viewport {
   border-style: dashed;
   border-color: #d2dfe8;
@@ -92,4 +106,4 @@ onUpdated(() => {
   min-width: 200px;
   position: inherit;
 }
-</style>
+</style> -->

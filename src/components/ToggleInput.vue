@@ -20,7 +20,7 @@ function sendToggleUpdate() {
 
 <template>
     <form class = "definition-input">
-        <label class="input-title" for="toggle"> {{ title }}</label>
+        <label class="input-title" for="toggle"> {{ title }}: {{ toggleValue }}</label>
 
         <div class="checkbox-wrapper-22">
         <label class="switch" for="checkbox">
